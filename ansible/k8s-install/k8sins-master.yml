@@ -1,5 +1,5 @@
 ---
-- hosts: k8smaster
+- hosts: 'k8smaster, k8workers'
   become: yes
   roles:
     - roles/k8s-master
