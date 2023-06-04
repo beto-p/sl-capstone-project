@@ -10,8 +10,7 @@
     state: present
 
 - name: Install Kubernetes packages
-  apt:
-    name: kubelet={{ kubernetes_version }}-00 kubeadm={{ kubernetes_version }}-00 kubectl={{ kubernetes_version }}-00
+  apt: name=kubelet name=kubeadm name=kubectl
     update_cache: yes
 
 - name: Enable and start Docker service
