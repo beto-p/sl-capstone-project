@@ -2,4 +2,4 @@
 - hosts: k8smaster
   become: yes
   roles:
-    - k8s-install/k8s
+    - k8s-install/roles/k8s
