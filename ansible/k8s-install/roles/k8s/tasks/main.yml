@@ -5,7 +5,7 @@
 
 - name: Install Docker from repo
   apt:
-  name: {{ item }}
+  name: "{{ item }}"
   with_items:
    - apt-transport-https
    - ca-certificates 
@@ -34,7 +34,7 @@
 
 - name: Install Docker engine and dependencies
   apt:
-  name: {{ item }}
+  name: "{{ item }}"
   with_items:
    - docker-ce
    - docker-ce-cli
