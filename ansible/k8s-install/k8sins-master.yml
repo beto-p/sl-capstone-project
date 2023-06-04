@@ -2,4 +2,4 @@
 - hosts: k8smaster
   become: yes
   roles:
-    - /roles/k8s
+    - roles/k8s
