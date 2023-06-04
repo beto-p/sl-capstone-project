@@ -1,0 +1,48 @@
+#Kubernetes Installation
+- name: Kubernetes APT key
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: Kubernetes APT repository
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+
+- name: Install Kubernetes packages
+  apt:
+    name: kubelet={{ kubernetes_version }}-00 kubeadm={{ kubernetes_version }}-00 kubectl={{ kubernetes_version }}-00
+    update_cache: yes
+
+- name: Enable and start Docker service
+  service:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Enable and start CRIDockerd service
+  service:
+    name: cri-dockerd
+    enabled: true
+    state: started
+
+- name: Initialize Kubernetes cluster on master
+  command: kubeadm init --ignore-preflight-errors=all
+  when: inventory_hostname == 'K8sMaster'
+  register: kubeadm_output
+
+- name: Save join command for worker nodes
+  lineinfile:
+    dest: /home/{{ ansible_user }}/kubeadm_join.sh
+    line: "{{ kubeadm_output.stdout_lines[-1] }}"
+  when: inventory_hostname != 'K8sMaster'
+
+- name: Copy join script to worker nodes
+  copy:
+    src: /home/{{ ansible_user }}/kubeadm_join.sh
+    dest: /home/{{ ansible_user }}/kubeadm_join.sh
+  when: inventory_hostname != 'K8sMaster'
+
+- name: Install Calico network driver
+  command: kubectl apply -f https://docs.projectcalico.org/{{ calico_version }}/manifests/calico.yaml
+  when: inventory_hostname == 'K8sMaster'

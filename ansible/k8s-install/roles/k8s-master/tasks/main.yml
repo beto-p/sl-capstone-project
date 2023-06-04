@@ -1,0 +1,17 @@
+---
+
+- name: Update "apt update"
+  apt: update_cache=yes
+
+
+# Task to install Docker
+- name: Installing Docker and dependencies 
+  include_tasks: docker-install.yml
+
+# Task to install CRIDocker
+- name: Installing CRIDocker
+  include_tasks: cridockerd.yml
+
+# Task to install Kubernetes 
+- name: Installing Kubernetes
+  include_tasks: kube-install.yml

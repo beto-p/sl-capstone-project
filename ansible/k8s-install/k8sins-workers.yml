@@ -2,4 +2,4 @@
 - hosts: k8sworkers
   become: yes
   roles:
-    - k8s-install/k8s
+    - roles/k8s-workers

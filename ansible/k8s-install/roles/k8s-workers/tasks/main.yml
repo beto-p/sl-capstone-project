@@ -1,0 +1,9 @@
+---
+
+- name: Update "apt update"
+  apt: update_cache=yes
+
+
+# Task to install Docker
+- name: Installing Docker and dependencies 
+  include_tasks: docker-install.yml

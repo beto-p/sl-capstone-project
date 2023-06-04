@@ -1,0 +1,22 @@
+# Install CRIDockerd
+
+- name: Create temporary directory
+  tempfile:
+    state: directory
+  register: temp_dir
+
+- name: Download cri-dockerd tar
+  get_url:
+    url: "https://github.com/Mirantis/cri-dockerd/releases/download/v0.3.0/cri-dockerd-0.3.0.amd64.tgz"
+    dest: "{{ temp_dir.path }}/cri-dockerd-0.3.0.amd64.tgz"
+
+- name: Extract cri-dockerd tar
+  unarchive:
+    src: "{{ temp_dir.path }}/cri-dockerd-0.3.0.amd64.tgz"
+    dest: /usr/local/bin
+    remote_src: yes
+
+- name: Set permissions on cri-dockerd binary
+  file:
+    path: /usr/local/bin/cri-dockerd
+    mode: "u+x"
