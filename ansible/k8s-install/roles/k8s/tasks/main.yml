@@ -4,17 +4,15 @@
   apt: update_cache=yes
 
 - name: Install dependencies
-  apt:
-    name: "{{ item }}"
-    with_items:
-     - apt-transport-https
-     - ca-certificates 
-     - curl
-     - gnupg
-     - software-properties-common 
-     - lsb-release
-    state: present
-    update_cache: yes
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+   - apt-transport-https
+   - ca-certificates 
+   - curl
+   - gnupg
+   - software-properties-common 
+   - lsb-release
+
 
 #- name: Docker keyring directory
 #  file:
