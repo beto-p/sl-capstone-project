@@ -10,7 +10,7 @@
 
 # Task to install CRIDocker
 - name: Installing CRIDocker
-  include_tasks: cridockerd.yml
+  include_tasks: cridockerd-install.yml
 
 # Task to install Kubernetes 
 - name: Installing Kubernetes
