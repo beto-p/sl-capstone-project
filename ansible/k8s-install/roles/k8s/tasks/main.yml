@@ -3,18 +3,18 @@
 - name: Update "apt update"
   apt: update_cache=yes force_apt=yes
 
-- name: Install Docker from repo
+- name: Install dependencies
   apt:
-  name: "{{ item }}"
-  with_items:
-   - apt-transport-https
-   - ca-certificates 
-   - curl
-   - gnupg
-   - software-properties-common 
-   - lsb-release
-  state: present
-  update_cache: yes
+    name: "{{ item }}"
+    with_items:
+     - apt-transport-https
+     - ca-certificates 
+     - curl
+     - gnupg
+     - software-properties-common 
+     - lsb-release
+    state: present
+    update_cache: yes
 
 #- name: Docker keyring directory
 #  file:
@@ -34,12 +34,12 @@
 
 - name: Install Docker engine and dependencies
   apt:
-  name: "{{ item }}"
-  with_items:
-   - docker-ce
-   - docker-ce-cli
-   - containerd.io
-   - docker-compose-plugin
+    name: "{{ item }}"
+    with_items:
+     - docker-ce
+     - docker-ce-cli
+     - containerd.io
+     - docker-compose-plugin
 
 - name: Ensure Docker service is running
   service:
